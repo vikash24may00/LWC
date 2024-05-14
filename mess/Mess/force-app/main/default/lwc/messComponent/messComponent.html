@@ -1,0 +1,61 @@
+<template>
+    <lightning-card title="Mess Bill Management">
+
+        <!-- add record button -->
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <lightning-button label="Add Entry" onclick={addEntry} variant="brand"></lightning-button>
+            </div>
+            <!-- submit button -->
+            <div class="slds-col">
+                <lightning-button label="Submit" onclick={handleSubmit} variant="brand"></lightning-button>
+            </div>
+        </div>
+
+        <!-- table -->
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr>
+                    <th>Serial No.</th>
+                    <th>Name</th>
+
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Order</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <template for:each={entries} for:item="entry" for:index="index">
+                    <tr key={entry.id}>
+                        <td>{entry.serialNumber}</td>
+                        <td>
+                            <lightning-input value={entry.name} onchange={handleInputChange} data-index={index}
+                                data-field="name"></lightning-input>
+                        </td>
+
+                        <td>
+                            <lightning-input type="number" value={entry.amount} onchange={handleInputChange}
+                                data-index={index} data-field="amount"></lightning-input>
+                        </td>
+                        <td>
+                            <lightning-input type="date" value={entry.date} onchange={handleInputChange}
+                                data-index={index} data-field="date"></lightning-input>
+                        </td>
+                        <td>
+                            <lightning-combobox value={entry.order} options={orderOptions} onchange={handleInputChange}
+                                data-index={index} data-field="order"></lightning-combobox>
+                        </td>
+
+                        <!-- delete button -->
+                        <td>
+                            <lightning-button-icon icon-name="utility:delete" onclick={deleteEntry}
+                                data-entry-id={entry.id} alternative-text="Delete"></lightning-button-icon>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </lightning-card>
+</template>
