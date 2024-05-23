@@ -3,12 +3,14 @@ import { LightningElement, track } from 'lwc';
 
 export default class MessBillManagement extends LightningElement {
     @track entries = [];
+    @track dailyUpdates = {'sObject':'Entries__c'};
     @track serialNumber = 1;
     orderOptions = [
         { label: 'Received', value: 'Received' },
         { label: 'Not Received', value: 'Not Received' },
         { label: 'Semi Received', value: 'Semi Received' }
     ];
+    
     addEntry() {
         const newEntry = {
             id: Date.now().toString(),
@@ -50,6 +52,6 @@ export default class MessBillManagement extends LightningElement {
 
     handleSubmit() {
         // submit logic
-        console.log('Submitting entries:', this.entries);
+        console.log('Submitting entries:', JSON.stringify(this.entries));
     }
 }
