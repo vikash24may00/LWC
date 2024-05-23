@@ -1,0 +1,53 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 05-23-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+ <template>
+    <lightning-card title="Filters" icon-name="standard:calibration">
+        <div class="slds-m-horizontal_medium">
+            <lightning-input label="Search" type="text" value={searchTerm} onchange={handleInputChange}></lightning-input>
+            <div class="slds-m-top_small">
+                <lightning-input type="checkbox" label="Small" value="Small" checked={selectedFilters.Small} onchange={handleFilterChange}></lightning-input>
+                <lightning-input type="checkbox" label="Medium" value="Medium" checked={selectedFilters.Medium} onchange={handleFilterChange}></lightning-input>
+                <lightning-input type="checkbox" label="Large" value="Large" checked={selectedFilters.Large} onchange={handleFilterChange}></lightning-input>
+            </div>
+            <br>
+            <lightning-button label="Search" onclick={handleSearch}></lightning-button>
+            <lightning-button label="Clear Filter" onclick={clearFilter}></lightning-button>
+        </div>
+    </lightning-card>
+
+    <lightning-card title="Property List">
+        <template if:true={propertyItems}>
+            <div class="slds-grid slds-wrap">
+                <template for:each={propertyItems} for:item="item">
+                    <div key={item.Id} class="slds-col slds-size_1-of-3 slds-p-around_small">
+                        <div class="slds-box slds-box_x-small slds-text-align_center">
+                            <div class="slds-m-bottom_small">
+                                <img src={item.Image__c} alt={item.Name} class="property-image"/>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-grid_vertical-align-center">
+                                <div class="slds-col">
+                                    <h3 class="slds-text-heading_small">{item.Name}</h3>
+                                    <p><lightning-formatted-number value={item.Price__c} format-style="currency" currency-code="INR" currency-display-as="name"></lightning-formatted-number></p>
+                                </div>
+                            </div>
+                            <p>Details : {item.Description__c}</p>
+                            <p>Property Type : {item.PropertyType__c}</p>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+        <template if:true={error}>
+            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <div class="slds-box slds-box_x-small slds-text-align_center">
+                    <p>{error}</p>
+                </div>
+            </div>
+        </template>
+    </lightning-card>
+</template>
